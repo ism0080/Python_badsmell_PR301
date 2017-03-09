@@ -1,0 +1,7 @@
+empid=A123
+gender=M
+age=20
+sales=123
+bmi=Normal
+salary=10.999
+birthday=24-10-1996
