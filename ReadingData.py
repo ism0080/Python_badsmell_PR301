@@ -51,11 +51,11 @@ class Validator(object):
     def age(self, age):
         match = re.search(r'age=[0-9]{2}', age)
         if match is not None:
-            clean = "Age = False Validation"
+            clean = "Age = True Validation"
             new_match = re.search(r'[0-9]{2}', match.group(0))
             self.age = new_match.group(0)
         else:
-            clean = "Age = True Validation"
+            clean = "Age = False Validation"
         return clean
 
     def sales(self, sales):

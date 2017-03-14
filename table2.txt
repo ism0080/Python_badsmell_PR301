@@ -1,0 +1,7 @@
+id=A23
+gender=M
+age=100
+sales=001
+bmi=overweight
+salary=44
+birthday=1996-10-04
