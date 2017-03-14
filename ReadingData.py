@@ -19,14 +19,14 @@ with open('table.txt', 'r') as file:
 
 class Validator(object):
 
-    def __init__(self):
-        self.id = None
-        self.gender = None
-        self.age = None
-        self.sales = None
-        self.bmi = None
-        self.salary = None
-        self.birthday = None
+    # def __init__(self):
+    #     self.id = None
+    #     self.gender = None
+    #     self.age = None
+    #     self.sales = None
+    #     self.bmi = None
+    #     self.salary = None
+    #     self.birthday = None
 
     def empid(self, empid):
         match = re.search(r'id=[A-Z][1-9]{3}', empid)
@@ -109,33 +109,15 @@ class Validator(object):
                 id=self.id, gender=self.gender, age=self.age,
                 sales=self.sales, bmi=self.bmi, salary=self.salary,
                 birthday=self.birthday)
-#
-# class Table(object):
-#     def __init__(self, new_id, new_gender, new_age, new_sales, new_bmi, new_salary, new_birthday):
-#         self.id = new_id
-#         self.gender = new_gender
-#         self.age = new_age
-#         self.sales = new_sales
-#         self.bmi = new_bmi
-#         self.salary = new_salary
-#         self.birthday = new_birthday
-#
-#     def say(self, msg):
-#         return "EMPID={id}, GENDER={gender}, AGE={age}, SALES={sales}, BMI={bmi}, SALARY={salary}, BIRTHDAY={birthday}".format(
-#             id=self.id, gender=self.gender, age=self.age, sales=self.sales, bmi=self.bmi, salary=self.salary,
-#             birthday=self.birthday)
 
-#
-e = Validator()
-print(e.empid(data))
-print(e.gender(data))
-print(e.age(data))
-print(e.sales(data))
-print(e.bmi(data))
-print(e.salary(data))
-print(e.birthday(data))
-# j = Table(e.empid(ID), GENDER, AGE, SALES, BMI, SALARY, BIRTHDAY)
-# print(j.say("mes"))
+# e = Validator()
+# print(e.empid(data))
+# print(e.gender(data))
+# print(e.age(data))
+# print(e.sales(data))
+# print(e.bmi(data))
+# print(e.salary(data))
+# print(e.birthday(data))
 
 # try:
 #     matchObj = re.match(r'[A-Z][1-9]{3}', ID)

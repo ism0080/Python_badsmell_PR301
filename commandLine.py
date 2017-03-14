@@ -5,7 +5,7 @@ import sys
 from cmd import Cmd
 
 from ReadingData import Validator
-validator = Validator()
+val = Validator()
 
 
 class DomainCmd(Cmd):
@@ -19,17 +19,16 @@ class DomainCmd(Cmd):
         with open(filename, 'r') as file:
             data = file.read()
 
-        e = validator
-        print(e.empid(data))
-        print(e.gender(data))
-        # print(e.age(data))
-        # print(e.sales(data))
-        # print(e.bmi(data))
-        # print(e.salary(data))
-        # print(e.birthday(data))
+        print(val.empid(data))
+        print(val.gender(data))
+        print(val.age(data))
+        print(val.sales(data))
+        print(val.bmi(data))
+        print(val.salary(data))
+        print(val.birthday(data))
 
     def do_table(self, line):
-        t = validator
+        t = val
         print(t)
 
     # Quit the cmd
