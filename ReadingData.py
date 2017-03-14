@@ -19,14 +19,14 @@ with open('table.txt', 'r') as file:
 
 class Validator(object):
 
-    # def __init__(self):
-    #     self.id = None
-    #     self.gender = None
-    #     self.age = None
-    #     self.sales = None
-    #     self.bmi = None
-    #     self.salary = None
-    #     self.birthday = None
+    def __call__(self):
+        self.id = None
+        self.gender = None
+        self.age = None
+        self.sales = None
+        self.bmi = None
+        self.salary = None
+        self.birthday = None
 
     def empid(self, empid):
         match = re.search(r'id=[A-Z][1-9]{3}', empid)
