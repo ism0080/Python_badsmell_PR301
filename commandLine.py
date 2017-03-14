@@ -21,6 +21,16 @@ class DomainCmd(Cmd):
 
         e = validator
         print(e.empid(data))
+        print(e.gender(data))
+        # print(e.age(data))
+        # print(e.sales(data))
+        # print(e.bmi(data))
+        # print(e.salary(data))
+        # print(e.birthday(data))
+
+    def do_table(self, line):
+        t = validator
+        print(t)
 
     # Quit the cmd
     def do_quit(self, line):

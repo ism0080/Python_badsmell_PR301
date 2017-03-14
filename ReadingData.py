@@ -18,62 +18,97 @@ with open('table.txt', 'r') as file:
 
 
 class Validator(object):
+
+    def __init__(self):
+        self.id = None
+        self.gender = None
+        self.age = None
+        self.sales = None
+        self.bmi = None
+        self.salary = None
+        self.birthday = None
+
     def empid(self, empid):
         match = re.search(r'id=[A-Z][1-9]{3}', empid)
         if match is not None:
-            clean = match.group(0)
+            clean = "Id = True Validation"
+            new_match = re.search(r'[A-Z][1-9]{3}', match.group(0))
+            self.id = new_match.group(0)
         else:
-            clean = ""
+            clean = "Id = False Validation"
         return clean
 
     def gender(self, gender):
         match = re.search(r'gender=M|F', gender)
         if match is not None:
-            clean = match.group(0)
+            clean = "Gender = True Validation"
+            new_match = re.search(r'M|F', match.group(0))
+            self.gender = new_match.group(0)
         else:
-            clean = ""
+            clean = "Gender = False Validation"
         return clean
 
     def age(self, age):
         match = re.search(r'age=[0-9]{2}', age)
         if match is not None:
-            clean = match.group(0)
+            clean = "Age = False Validation"
+            new_match = re.search(r'[0-9]{2}', match.group(0))
+            self.age = new_match.group(0)
         else:
-            clean = ""
+            clean = "Age = True Validation"
         return clean
 
     def sales(self, sales):
         match = re.search(r'sales=[0-9]{3}', sales)
         if match is not None:
-            clean = match.group(0)
+            clean = "Sales = True Validation"
+            new_match = re.search(r'[0-9]{3}', match.group(0))
+            self.sales = new_match.group(0)
         else:
-            clean = ""
+            clean = "Sales = False Validation"
         return clean
 
     def bmi(self, bmi):
         match = re.search(r'bmi=(Normal|Overweight|Obesity|Underweight)', bmi)
         if match is not None:
-            clean = match.group(0)
+            clean = "Bmi = True Validation"
+            new_match = re.search(r'(Normal|Overweight|Obesity|Underweight)', match.group(0))
+            self.bmi = new_match.group(0)
         else:
-
-            clean = ""
+            clean = "Bmi = False Validation"
         return clean
 
     def salary(self, salary):
         match = re.search(r'salary=[0-9]{2,3}', salary)
         if match is not None:
-            clean = match.group(0)
+            clean = "Salary = True Validation"
+            new_match = re.search(r'[0-9]{2,3}', match.group(0))
+            self.salary = new_match.group(0)
         else:
-            clean = ""
+            clean = "Salary = False Validation"
         return clean
 
     def birthday(self, birthday):
         match = re.search(r'birthday=[0-3][1-9]-[0-9]{1,2}-[1-9]{4}', birthday)
         if match is not None:
-            clean = match.group(0)
+            clean = "Birthday = True Validation"
+            new_match = re.search(r'[0-3][1-9]-[0-9]{1,2}-[1-9]{4}', match.group(0))
+            self.birthday = new_match.group(0)
         else:
-            clean = ""
+            clean = "Birthday = False Validation"
         return clean
+
+    def __str__(self):
+        return "id = {id}\n" \
+               "gender = {gender}\n" \
+               "age = {age}\n" \
+               "sales = {sales}\n" \
+               "bmi = {bmi}\n" \
+               "salary = {salary}\n" \
+               "birthday = {birthday}\n".format(
+                id=self.id, gender=self.gender, age=self.age,
+                sales=self.sales, bmi=self.bmi, salary=self.salary,
+                birthday=self.birthday)
 #
 # class Table(object):
 #     def __init__(self, new_id, new_gender, new_age, new_sales, new_bmi, new_salary, new_birthday):
@@ -91,14 +126,14 @@ class Validator(object):
 #             birthday=self.birthday)
 
 #
-# e = Validator()
-# print(e.empid(data))
-# print(e.gender(data))
-# print(e.age(data))
-# print(e.sales(data))
-# print(e.bmi(data))
-# print(e.salary(data))
-# print(e.birthday(data))
+e = Validator()
+print(e.empid(data))
+print(e.gender(data))
+print(e.age(data))
+print(e.sales(data))
+print(e.bmi(data))
+print(e.salary(data))
+print(e.birthday(data))
 # j = Table(e.empid(ID), GENDER, AGE, SALES, BMI, SALARY, BIRTHDAY)
 # print(j.say("mes"))
 
