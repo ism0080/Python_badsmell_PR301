@@ -14,7 +14,7 @@ import re
 
 with open('table.txt', 'r') as file:
     data = file.read()
-    print(data)
+    # print(data)
 
 
 class Validator(object):
@@ -55,6 +55,7 @@ class Validator(object):
         if match is not None:
             clean = match.group(0)
         else:
+
             clean = ""
         return clean
 
@@ -73,31 +74,31 @@ class Validator(object):
         else:
             clean = ""
         return clean
+#
+# class Table(object):
+#     def __init__(self, new_id, new_gender, new_age, new_sales, new_bmi, new_salary, new_birthday):
+#         self.id = new_id
+#         self.gender = new_gender
+#         self.age = new_age
+#         self.sales = new_sales
+#         self.bmi = new_bmi
+#         self.salary = new_salary
+#         self.birthday = new_birthday
+#
+#     def say(self, msg):
+#         return "EMPID={id}, GENDER={gender}, AGE={age}, SALES={sales}, BMI={bmi}, SALARY={salary}, BIRTHDAY={birthday}".format(
+#             id=self.id, gender=self.gender, age=self.age, sales=self.sales, bmi=self.bmi, salary=self.salary,
+#             birthday=self.birthday)
 
-class Table(object):
-    def __init__(self, new_id, new_gender, new_age, new_sales, new_bmi, new_salary, new_birthday):
-        self.id = new_id
-        self.gender = new_gender
-        self.age = new_age
-        self.sales = new_sales
-        self.bmi = new_bmi
-        self.salary = new_salary
-        self.birthday = new_birthday
-
-    def say(self, msg):
-        return "EMPID={id}, GENDER={gender}, AGE={age}, SALES={sales}, BMI={bmi}, SALARY={salary}, BIRTHDAY={birthday}".format(
-            id=self.id, gender=self.gender, age=self.age, sales=self.sales, bmi=self.bmi, salary=self.salary,
-            birthday=self.birthday)
-
-
-e = Validator()
-print(e.empid(data))
-print(e.gender(data))
-print(e.age(data))
-print(e.sales(data))
-print(e.bmi(data))
-print(e.salary(data))
-print(e.birthday(data))
+#
+# e = Validator()
+# print(e.empid(data))
+# print(e.gender(data))
+# print(e.age(data))
+# print(e.sales(data))
+# print(e.bmi(data))
+# print(e.salary(data))
+# print(e.birthday(data))
 # j = Table(e.empid(ID), GENDER, AGE, SALES, BMI, SALARY, BIRTHDAY)
 # print(j.say("mes"))
 
