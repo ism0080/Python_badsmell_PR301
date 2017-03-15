@@ -12,13 +12,20 @@ class DomainCmd(Cmd):
     def __init__(self):
         Cmd.__init__(self)
         self.prompt = "-> "
+        self.filename = None
         self.my_name = "unknown"
         self.intro = "Welcome to the Problem Domain"
 
-    def do_validate(self, filename):
-        with open(filename, 'r') as file:
-            data = file.read()
+    def do_read(self, filename):
+        try:
+            with open(filename, 'r') as file:
+                data = file.read()
+            print(data)
+        except IOError as err:
+            print("The exception is: ", err)
 
+    def do_validate(self, line):
+        data = self.filename
         print(val.empid(data))
         print(val.gender(data))
         print(val.age(data))

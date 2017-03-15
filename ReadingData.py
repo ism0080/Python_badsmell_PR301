@@ -13,20 +13,56 @@ import re
 #     print(line)
 
 with open('table.txt', 'r') as file:
-    data = file.read()
+    # data = file.readlines()
+    data2 = file.read()
     # print(data)
+
+    line = data2.split()
+    dic = dict(e.split('=') for e in line)
+    print(dic)
+    # print(data.split('='))
 
 
 class Validator(object):
 
-    def __call__(self):
-        self.id = None
-        self.gender = None
-        self.age = None
-        self.sales = None
-        self.bmi = None
-        self.salary = None
-        self.birthday = None
+    def __init__(self):
+        self.regDic = {"id": r'[A-Z][1-9]{3}',
+                       "gender": r'M|F',
+                       "age": r'[0-9]{2}',
+                       "sales": r'[0-9]{3}',
+                       "bmi": r'(Normal|Overweight|Obesity|Underweight)',
+                       "salary": r'[0-9]{2,3}',
+                       "birthday": r'[0-3][1-9]-[0-9]{1,2}-[1-9]{4}'}
+        # for i, j in reg:
+        self.regLi = [r'[A-Z][1-9]{3}',
+                      r'M|F',
+                      r'[0-9]{2}',
+                      r'[0-9]{3}',
+                      r'(Normal|Overweight|Obesity|Underweight)',
+                      r'[0-9]{2,3}',
+                      r'[0-3][1-9]-[0-9]{1,2}-[1-9]{4}']
+
+    def valid(self, input):
+        clean = []
+        for key, value in input.items():
+            match = re.search(self.regDic.get(key), value)
+            if match is not None:
+                clean.extend(["{} = True".format(key.upper())])
+            else:
+                clean.extend(["{} = False".format(key.upper())])
+        return clean
+
+    # def valid(self, input):
+    #     clean = []
+    #     i = 0
+    #     for key, value in input.items():
+    #         match = re.search(self.regLi[i], value)
+    #         if match is not None:
+    #             clean.extend(["{} = True Validation".format(key.upper())])
+    #         else:
+    #             clean.extend(["{} = False Validation".format(key.upper())])
+    #         i += 1
+    #     return clean
 
     def empid(self, empid):
         match = re.search(r'id=[A-Z][1-9]{3}', empid)
@@ -105,12 +141,13 @@ class Validator(object):
                "sales = {sales}\n" \
                "bmi = {bmi}\n" \
                "salary = {salary}\n" \
-               "birthday = {birthday}\n".format(
+               "birthday = {birthday}".format(
                 id=self.id, gender=self.gender, age=self.age,
                 sales=self.sales, bmi=self.bmi, salary=self.salary,
                 birthday=self.birthday)
 
-# e = Validator()
+e = Validator()
+print(e.valid(dic))
 # print(e.empid(data))
 # print(e.gender(data))
 # print(e.age(data))
