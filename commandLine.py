@@ -8,6 +8,7 @@ from ReadingData import Validator
 val = Validator()
 
 
+
 class DomainCmd(Cmd):
     def __init__(self):
         Cmd.__init__(self)
@@ -23,7 +24,7 @@ class DomainCmd(Cmd):
                 line = data.split()
                 dic = dict(e.split('=') for e in line)
                 print(dic)
-                self.filename = dic
+            self.filename = dic
         except IOError as err:
             print("The exception is: ", err)
 
