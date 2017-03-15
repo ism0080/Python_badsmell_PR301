@@ -20,23 +20,19 @@ class DomainCmd(Cmd):
         try:
             with open(filename, 'r') as file:
                 data = file.read()
-            print(data)
+                line = data.split()
+                dic = dict(e.split('=') for e in line)
+                print(dic)
+                self.filename = dic
         except IOError as err:
             print("The exception is: ", err)
 
     def do_validate(self, line):
         data = self.filename
-        print(val.empid(data))
-        print(val.gender(data))
-        print(val.age(data))
-        print(val.sales(data))
-        print(val.bmi(data))
-        print(val.salary(data))
-        print(val.birthday(data))
+        print(val.valid(data))
 
     def do_table(self, line):
-        t = val
-        print(t)
+        print(val)
 
     # Quit the cmd
     def do_quit(self, line):
