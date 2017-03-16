@@ -4,9 +4,6 @@ Problem Domain CMD
 import sys
 from cmd import Cmd
 
-from ReadingData import Validator
-val = Validator()
-
 # FIX THIS PLEASE
 # def arg():
 #     try:
@@ -37,11 +34,26 @@ class DomainCmd(Cmd):
     def do_read(self, filename):
         self.con.read_file(filename)
 
-    def do_validate(self, line):
-        self.con.validate()
+    def do_validate(self, filename=None):
+        if filename:
+            self.con.read_file(filename)
+            self.con.validate()
+        else:
+            self.con.validate()
 
-    def do_table(self, line):
-        self.con.database()
+    def do_droptable(self, line):
+        self.con.db_drop_table()
+
+    def do_createtable(self, line):
+        self.con.db_create_table()
+
+    def do_insert(self, filename=None):
+        if filename:
+            self.con.read_file(filename)
+            self.con.validate()
+            self.con.db_insert()
+        else:
+            self.con.db_insert()
 
     # Quit the cmd
     def do_quit(self, line):

@@ -22,12 +22,22 @@ class Controller(object):
     def validate(self):
         self.val.valid(self.filename)
 
-    def database(self):
-        # db.drop_table("employee")
+    def db_drop_table(self):
+        self.db.drop_table("employee")
+
+    def db_create_table(self):
         self.db.create_table()
-        i = self.val.get()
-        self.db.insert(i["id"], i["gender"], i["age"], i["sales"], i["bmi"], i["salary"], i["birthday"])
-        return self.db.get()
+
+    def db_insert(self):
+        try:
+            i = self.val.get()
+            if i:
+                self.db.insert(i["id"], i["gender"], i["age"], i["sales"], i["bmi"], i["salary"], i["birthday"])
+                return self.db.get()
+            else:
+                raise Exception("Cannot add invalid data to the database")
+        except Exception as err:
+            print("The exception is: ", err)
 
     def database_close(self):
         self.db.close()

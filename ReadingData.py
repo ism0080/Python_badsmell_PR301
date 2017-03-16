@@ -44,20 +44,23 @@ class Validator(object):
                     # clean.extend(["{} = True".format(key.upper())])
                     self.dictionary[key] = value
                 else:
-                    raise Exception("Data is invalid")
+                    un_clean.extend(["{} = False".format(key.upper())])
+                    # raise Exception("Data is invalid")
                     # clean.extend(["{} = False".format(key.upper())])
+            if len(self.dictionary) < 7:
+                raise Exception("Data is invalid")
         except Exception as err:
             print("The exception is:", err)
             # clean = []
             self.dictionary = {}
-            if match is None:
-                un_clean.extend(["{} = False".format(key.upper())])
+            # if match is None:
+            #     un_clean.extend(["{} = False".format(key.upper())])
         finally:
             if self.dictionary:
                 print(self.dictionary)
-                return "\nVALIDATION SUCCESSFUL"
+                print("\nVALIDATION SUCCESSFUL")
             else:
-                return un_clean
+                print(un_clean)
 
     def get(self):
         return self.dictionary
