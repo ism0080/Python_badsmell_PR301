@@ -1,5 +1,4 @@
 import re
-from databaseDemo import DatabaseMaker as db
 # file = open("table.txt", "r")
 # for line in file:
 #     print(line)
@@ -35,11 +34,11 @@ class Validator(object):
         #               r'[0-9]{2,3}',
         #               r'[0-3][1-9]-[0-9]{1,2}-[1-9]{4}']
 
-    def valid(self, input):
-        clean = []
+    def valid(self, filename):
+        # clean = []
         un_clean = []
         try:
-            for key, value in input.items():
+            for key, value in filename.items():
                 match = re.search(self.regDic.get(key), value)
                 if match is not None:
                     # clean.extend(["{} = True".format(key.upper())])
@@ -60,10 +59,8 @@ class Validator(object):
             else:
                 return un_clean
 
-    # def database(self):
-    #     db('problem_domain.db')
-    #     db.create_table()
-    #     db.insert()
+    def get(self):
+        return self.dictionary
 
     def __str__(self):
         s = ""

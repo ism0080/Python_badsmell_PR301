@@ -1,6 +1,8 @@
 from commandLine import DomainCmd
-from ReadingData import Validator
-
+from controller import Controller
 
 if __name__ == '__main__':
-    DomainCmd.cmdloop()
+    con = Controller()
+    cmdView = DomainCmd(con)
+    # cmdView.set_controller(con)
+    cmdView.cmdloop()
