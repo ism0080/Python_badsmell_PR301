@@ -1,7 +1,7 @@
-id=A23
+id=A123
 gender=M
-age=100
+age=20
 sales=001
-bmi=overweight
+bmi=Overweight
 salary=44
-birthday=1996-10-04
+birthday=02-02-2000
