@@ -5,4 +5,5 @@ if __name__ == '__main__':
     con = Controller()
     cmdView = DomainCmd(con)
     # cmdView.set_controller(con)
+    cmdView.arg()
     cmdView.cmdloop()

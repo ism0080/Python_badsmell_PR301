@@ -4,32 +4,27 @@ Problem Domain CMD
 import sys
 from cmd import Cmd
 
-# FIX THIS PLEASE
-# def arg():
-#     try:
-#         if sys.argv[1] == "happy":
-#             with open("table.txt", 'r') as file:
-#                 data = file.read()
-#                 line = data.split()
-#                 dic = dict(e.split('=') for e in line)
-#                 # print(dic)
-#             val.valid(dic)
-#             print(val.valid(dic))
-#             return val.database()
-#     except Exception as err:
-#         pass
-
 class DomainCmd(Cmd):
     def __init__(self, con):
         Cmd.__init__(self)
         self.prompt = "-> "
-        self.filename = None
-        self.my_name = "unknown"
         self.intro = "Welcome to the Problem Domain"
         self.con = con
 
     # def set_controller(self, con):
     #     self.con = con
+    def arg(self):
+        try:
+            if sys.argv[1] == "barchart":
+                self.do_table(None)
+            if sys.argv[1] == "read":
+                self.do_read(sys.argv[2])
+            if sys.argv[1] == "validate":
+                self.do_validate(sys.argv[2])
+            if sys.argv[1] == "insert":
+                self.do_insert(sys.argv[2])
+        except Exception as err:
+            pass
 
     def do_read(self, filename):
         self.con.read_file(filename)
@@ -40,6 +35,9 @@ class DomainCmd(Cmd):
             self.con.validate()
         else:
             self.con.validate()
+
+    def do_check(self, line):
+        self.con.view_valid()
 
     def do_droptable(self, line):
         self.con.db_drop_table()
@@ -63,6 +61,9 @@ class DomainCmd(Cmd):
         self.con.database_close()
         print("Closing cmd..")
         return True
+
+    def do_table(self, line):
+        self.con.py_view()
 
     # shortcut
     do_q = do_quit

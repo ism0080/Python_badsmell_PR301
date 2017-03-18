@@ -1,26 +1,37 @@
-from ReadingData import Validator
-from databaseDemo import DatabaseMaker
+from validator import Validator
+from database import DatabaseMaker
+from reader import FileReader
+from display import PyGal
 
 
 class Controller(object):
     def __init__(self):
         self.val = Validator()
         self.db = DatabaseMaker()
-        self.filename = None
+        self.reader = FileReader()
+        self.py = PyGal()
+        self.converted_file = None
+        self.file_count = 1
 
     def read_file(self, filename):
         try:
-            with open(filename, 'r') as file:
-                data = file.read()
-                line = data.split()
-                dic = dict(e.split('=') for e in line)
-                print(dic)
-            self.filename = dic
-        except IOError as err:
+            self.converted_file = self.reader.read(filename)
+            for dict in self.converted_file:
+                print("FILE", self.file_count, ": \n", dict)
+                self.file_count += 1
+        except Exception as err:
             print("The exception is: ", err)
 
     def validate(self):
-        self.val.valid(self.filename)
+        try:
+            for dict in self.converted_file:
+                self.val.valid(dict)
+        except Exception as err:
+            print("The exception is: No file specified")
+
+    def view_valid(self):
+        for dict in self.val.get():
+            print(dict)
 
     def db_drop_table(self):
         self.db.drop_table("employee")
@@ -30,9 +41,10 @@ class Controller(object):
 
     def db_insert(self):
         try:
-            i = self.val.get()
-            if i:
-                self.db.insert(i["id"], i["gender"], i["age"], i["sales"], i["bmi"], i["salary"], i["birthday"])
+            list_of_dictionaries = self.val.get()
+            if list_of_dictionaries:
+                for dict in list_of_dictionaries:
+                    self.db.insert(dict["id"], dict["gender"], dict["age"], dict["sales"], dict["bmi"], dict["salary"], dict["birthday"])
                 return self.db.get()
             else:
                 raise Exception("Cannot add invalid data to the database")
@@ -44,3 +56,7 @@ class Controller(object):
 
     def database_close(self):
         self.db.close()
+
+    def py_view(self):
+        data = self.db.bar_get()
+        self.py.bar_char("Age", data)

@@ -70,5 +70,17 @@ class DatabaseMaker(object):
         except Exception as err:
             print(err)
 
+    def bar_get(self):
+        try:
+            self.cursor.execute("SELECT age FROM employee")
+            # print("fetchall:")
+            result = self.cursor.fetchall()
+            list = []
+            for r in result:
+                list.extend(r)
+            return list
+        except Exception as err:
+            print(err)
+
     def close(self):
         self.connection.close()
