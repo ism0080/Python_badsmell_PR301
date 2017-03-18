@@ -55,6 +55,9 @@ class DomainCmd(Cmd):
         else:
             self.con.db_insert()
 
+    def do_view(self, line):
+        self.con.db_view()
+
     # Quit the cmd
     def do_quit(self, line):
         self.con.database_close()

@@ -39,5 +39,8 @@ class Controller(object):
         except Exception as err:
             print("The exception is: ", err)
 
+    def db_view(self):
+        self.db.get()
+
     def database_close(self):
         self.db.close()

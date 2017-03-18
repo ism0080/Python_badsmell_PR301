@@ -61,11 +61,14 @@ class DatabaseMaker(object):
         self.connection.commit()
 
     def get(self):
-        self.cursor.execute("SELECT * FROM employee")
-        print("fetchall:")
-        result = self.cursor.fetchall()
-        for r in result:
-            print(r)
+        try:
+            self.cursor.execute("SELECT * FROM employee")
+            print("fetchall:")
+            result = self.cursor.fetchall()
+            for r in result:
+                print(r)
+        except Exception as err:
+            print(err)
 
     def close(self):
         self.connection.close()

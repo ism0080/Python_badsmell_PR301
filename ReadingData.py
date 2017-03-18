@@ -4,15 +4,15 @@ from datetime import date
 # for line in file:
 #     print(line)
 
-# with open('table2.txt', 'r') as file:
-#     # data = file.readlines()
-#     data2 = file.read()
-#     # print(data)
+with open('table.txt', 'r') as file:
+    # data = file.readlines()
+    data2 = file.read()
+    # print(data)
 
-    # line = data2.split()
-    # dic = dict(e.split('=') for e in line)
+    line = data2.split()
+    dic = dict(e.split('=') for e in line)
     # print(dic)
-    # # print(data.split('='))
+    # print(data.split('='))
 
 
 class Validator(object):
@@ -27,14 +27,6 @@ class Validator(object):
                        "birthday": r'[0-3][0-9]-[0-9]{1,2}-[0-9]{4}'}
         self.dictionary = {}
         self.list_of_dictionaries = []
-        # # for i, j in reg:
-        # self.regLi = [r'[A-Z][1-9]{3}',
-        #               r'M|F',
-        #               r'[0-9]{2}',
-        #               r'[0-9]{3}',
-        #               r'(Normal|Overweight|Obesity|Underweight)',
-        #               r'[0-9]{2,3}',
-        #               r'[0-3][1-9]-[0-9]{1,2}-[1-9]{4}']
 
     def valid(self, filename):
         un_clean = []
@@ -48,7 +40,7 @@ class Validator(object):
             if len(self.dictionary) < 7:
                 raise Exception("Data is invalid")
             if self.valid_date(self.dictionary["birthday"]):
-                if self.valid_age(self.dictionary["birthday"]) == self.dictionary["age"]:
+                if int(self.valid_age(self.dictionary["birthday"])) == int(self.dictionary["age"]):
                     pass
                 else:
                     raise Exception("Age does not match birthdate")
@@ -106,5 +98,5 @@ class Validator(object):
     #     return clean
 
 
-# e = Validator()
-# print(e.valid(dic))
+e = Validator()
+print(e.valid(dic))
