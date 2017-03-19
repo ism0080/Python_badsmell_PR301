@@ -16,7 +16,7 @@ class DomainCmd(Cmd):
     def arg(self):
         try:
             if sys.argv[1] == "barchart":
-                self.do_table(None)
+                self.do_table(sys.argv[2])
             if sys.argv[1] == "read":
                 self.do_read(sys.argv[2])
             if sys.argv[1] == "validate":
@@ -33,8 +33,10 @@ class DomainCmd(Cmd):
         if filename:
             self.con.read_file(filename)
             self.con.validate()
+            self.con.view_valid()
         else:
             self.con.validate()
+            self.con.view_valid()
 
     def do_check(self, line):
         self.con.view_valid()
@@ -56,14 +58,14 @@ class DomainCmd(Cmd):
     def do_view(self, line):
         self.con.db_view()
 
+    def do_table(self, value):
+        self.con.py_view(value)
+
     # Quit the cmd
     def do_quit(self, line):
         self.con.database_close()
         print("Closing cmd..")
         return True
-
-    def do_table(self, line):
-        self.con.py_view()
 
     # shortcut
     do_q = do_quit

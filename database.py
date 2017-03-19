@@ -70,9 +70,11 @@ class DatabaseMaker(object):
         except Exception as err:
             print(err)
 
-    def bar_get(self):
+    def bar_get(self, value, value2):
         try:
-            self.cursor.execute("SELECT age FROM employee")
+            format_str = "SELECT {value} FROM employee"
+            sql_command = format_str.format(value=value)
+            self.cursor.execute(sql_command)
             # print("fetchall:")
             result = self.cursor.fetchall()
             list = []

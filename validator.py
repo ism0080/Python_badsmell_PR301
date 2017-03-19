@@ -35,13 +35,13 @@ from datetime import date
 class Validator(object):
 
     def __init__(self):
-        self.regDic = {"id": r'[A-Z][1-9]{3}',
+        self.regDic = {"id": r'[A-Z][0-9]{3}',
                        "gender": r'M|F',
                        "age": r'[0-9]{2}',
                        "sales": r'[0-9]{3}',
                        "bmi": r'(Normal|Overweight|Obesity|Underweight)',
-                       "salary": r'[0-9]{2,3}',
-                       "birthday": r'[0-3][0-9]-[0-9]{1,2}-[0-9]{4}'}
+                       "salary": r'^[0-9]{2,3}$',
+                       "birthday": r'[0-31]\w-[0-12]\w-[0-9]{4}'}
         self.dictionary = {}
         self.list_of_dictionaries = []
         self.file_count = 1
@@ -50,7 +50,7 @@ class Validator(object):
         invalid = []
         self.dictionary = {}
         try:
-            print("\nFILE:", self.file_count)
+            print("\nFILE_DATA:", self.file_count)
             for key, value in filename.items():
                 match = re.search(self.regDic.get(key), value)
                 if match is not None:

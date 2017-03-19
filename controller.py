@@ -1,3 +1,4 @@
+import re
 from validator import Validator
 from database import DatabaseMaker
 from reader import FileReader
@@ -17,7 +18,7 @@ class Controller(object):
         try:
             self.converted_file = self.reader.read(filename)
             for dict in self.converted_file:
-                print("FILE", self.file_count, ": \n", dict)
+                print("FILE_DATA:", self.file_count, "\n", dict)
                 self.file_count += 1
         except Exception as err:
             print("The exception is: ", err)
@@ -30,6 +31,7 @@ class Controller(object):
             print("The exception is: No file specified")
 
     def view_valid(self):
+        print("\n VALID DATA:")
         for dict in self.val.get():
             print(dict)
 
@@ -57,6 +59,13 @@ class Controller(object):
     def database_close(self):
         self.db.close()
 
-    def py_view(self):
-        data = self.db.bar_get()
-        self.py.bar_char("Age", data)
+    def py_view(self, value):
+        try:
+            for words in ['age', 'sales', 'salary']:
+                if re.search(r'\b' + words + r'\b', value):
+                    data = self.db.bar_get(value)
+                    self.py.bar_char(value, data)
+            else:
+                raise Exception("Can't create bar chart from that data")
+        except Exception as err:
+            print("The exception is: ", err)
