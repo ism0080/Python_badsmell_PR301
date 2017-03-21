@@ -4,74 +4,107 @@ Problem Domain CMD
 import sys
 from cmd import Cmd
 
+
 class DomainCmd(Cmd):
+    """
+    single command processor example
+    """
+
     def __init__(self, con):
         Cmd.__init__(self)
         self.prompt = "-> "
         self.intro = "Welcome to the Problem Domain"
         self.con = con
 
-    # def set_controller(self, con):
-    #     self.con = con
+    # Support Command-Line Argument
     def arg(self):
         try:
             if sys.argv[1] == "barchart":
-                self.do_table(sys.argv[2])
+                self.do_chart(sys.argv[2])
             if sys.argv[1] == "read":
                 self.do_read(sys.argv[2])
             if sys.argv[1] == "validate":
                 self.do_validate(sys.argv[2])
-            if sys.argv[1] == "insert":
-                self.do_insert(sys.argv[2])
+            if sys.argv[1] == "db":
+                self.do_db(sys.argv[2])
         except Exception as err:
             pass
 
+    # Read the file
     def do_read(self, filename):
+        """
+        Syntax: read [filename.extension]
+            read the file and convert to dictionary format
+        :param filename:
+        :return: Contents of the file
+        """
         self.con.read_file(filename)
 
-    def do_validate(self, filename=None):
-        if filename:
-            self.con.read_file(filename)
-            self.con.validate()
-            self.con.view_valid()
-        else:
-            self.con.validate()
-            self.con.view_valid()
+    # Validate the file
+    def do_validate(self, flag):
+        """
+        Syntax: validate [flag]
+            validate: will validate the previously read file
+            validate -f: will ask which file to read and validate
+            validate -v: will show which data was valid
+            validate -fv: will ask which file to read and
+                          validate and will show which data was valid
+        :param flag: -f, -v, -fv
+        :return: Each file and whether it was valid or not
+        """
+        self.con.valid(flag)
 
-    def do_check(self, line):
-        self.con.view_valid()
+    # Input/Output of Database
+    def do_db(self, flag):
+        """
+        Syntax: db [flag]
+            db: displays all data from the database
+            db -i: inserts the previously validated data
+            db -if: asks which file you would like to input to the database,
+                    reads it, validates, then inserts
+            db -v: asks which column you would like to see from the table
+            db -d: drop table
+            db -c: create table
+            db -dc: drop and create table
+        :param flag: -i, -if, -v, -d, -c, -dc
+        :return: Database knowledge
+        """
+        self.con.db_table(flag)
 
-    def do_droptable(self, line):
-        self.con.db_drop_table()
+    # PyGal Chart
+    def do_chart(self, flag):
+        """
+        Syntax: chart [flag]
+            chart: asks which column from the table you want to
+                    display in a barchart (age, sales, salary)
+            chart -d: asks which two columns you want to compare
+                        in a barchart (age, sales, salary)
+        :param flag: -d
+        :return: Opens web browser to display barchart
+        """
+        self.con.pygal(flag)
 
-    def do_createtable(self, line):
-        self.con.db_create_table()
-
-    def do_insert(self, filename=None):
-        if filename:
-            self.con.read_file(filename)
-            self.con.validate()
-            self.con.db_insert()
-        else:
-            self.con.db_insert()
-
-    def do_view(self, line):
-        self.con.db_view()
-
-    def do_table(self, value):
-        self.con.py_view(value)
+    # Pickle Serial
+    def do_serial(self, flag):
+        """
+        Syntax: serial [flag]
+            serial: writes the contents of the database to 'data.pickle'
+            serial -r: reads the contents of 'data.pickle'
+        :param flag: -r
+        :return: contents of 'data.pickle'
+        """
+        self.con.pickled(flag)
 
     # Quit the cmd
     def do_quit(self, line):
+        """
+        Syntax: quit
+            quit from my CMD
+        :return: True
+        """
         self.con.database_close()
         print("Closing cmd..")
         return True
 
     # shortcut
     do_q = do_quit
-
-# if __name__ == '__main__':
-#     arg = arg()
-#     print(arg)
-    # domain = DomainCmd()
-    # domain.cmdloop()

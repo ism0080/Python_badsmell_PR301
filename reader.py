@@ -16,9 +16,9 @@ class FileReader(object):
                     list_of_dictionaries.extend([i])
                     i += 1
                 for empty in list_of_dictionaries:
-                    list_of_dictionaries[empty] = dict(e.split('=') for e in line[empty])
+                    list_of_dictionaries[empty]\
+                        = dict(e.split('=') for e in line[empty])
             return list_of_dictionaries
         except IOError as err:
             print("The exception is: ", err)
             pass
-
