@@ -132,7 +132,7 @@ class Controller(object):
     def pickled_write(self):
         import pickle
         with open('data.pickle', 'wb') as f:
-            pickle.dump(self.db_view("*"), f)
+            pickle.dump(self.converted_file, f)
 
     def pickled_read(self):
         import pickle

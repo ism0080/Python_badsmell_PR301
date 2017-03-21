@@ -88,7 +88,7 @@ class DomainCmd(Cmd):
     def do_serial(self, flag):
         """
         Syntax: serial [flag]
-            serial: writes the contents of the database to 'data.pickle'
+            serial: writes the contents of the recently read file to 'data.pickle'
             serial -r: reads the contents of 'data.pickle'
         :param flag: -r
         :return: contents of 'data.pickle'
