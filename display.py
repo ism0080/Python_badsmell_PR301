@@ -9,7 +9,8 @@ class PyGal(object):
         try:
             bar_chart = pygal.Bar()  # Then create a bar graph object
             bar_chart.add(name, data)  # Add some values
-            bar_chart.add(name2, data2)
+            if name2 is not None:
+                bar_chart.add(name2, data2)
             bar_chart.render_in_browser()
         except Exception as err:
-            print("The exception is: Invalid Data")
+            print("The exception is: Invalid Data", err)

@@ -5,13 +5,13 @@ from datetime import date
 class Validator(object):
 
     def __init__(self):
-        self.regDic = {"id": r'[A-Z][0-9]{3}',
-                       "gender": r'M|F',
-                       "age": r'[0-9]{2}',
-                       "sales": r'[0-9]{3}',
-                       "bmi": r'(Normal|Overweight|Obesity|Underweight)',
+        self.regDic = {"id": r'^[A-Z][0-9]{3}$',
+                       "gender": r'^M$|^F$',
+                       "age": r'^[0-9]{2}$',
+                       "sales": r'^[0-9]{3}$',
+                       "bmi": r'(^Normal$|^Overweight$|^Obesity$|^Underweight$)',
                        "salary": r'^[0-9]{2,3}$',
-                       "birthday": r'[0-31]\w-[0-12]\w-[0-9]{4}'}
+                       "birthday": r'^[0-31]\w-[0-12]\w-[0-9]{4}$'}
         self.dictionary = {}
         self.list_of_dictionaries = []
         self.file_count = 1

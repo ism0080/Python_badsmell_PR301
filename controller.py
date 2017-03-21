@@ -28,6 +28,7 @@ class Controller(object):
         if flag == '-f':
             file = input("Validate which file?:")
             self.read_file(file)
+            self.validate()
         if flag == '-v':
             self.view_valid()
         if flag == '-fv':
@@ -67,8 +68,7 @@ class Controller(object):
             file = input("Input which file?:")
             self.read_file(file)
             self.validate()
-            for i in self.db_insert():
-                print(i)
+            self.db_insert()
         elif flag == '':
             self.db_view("*")
 
@@ -114,9 +114,9 @@ class Controller(object):
 
     def py_view(self, value, value2=None):
         try:
-            data = self.db.get(value)
+            data = self.db.bar_get(value)
             if value2 is not None:
-                data2 = self.db.get(value2)
+                data2 = self.db.bar_get(value2)
                 self.py.bar_char(value, data, value2, data2)
             else:
                 self.py.bar_char(value, data)

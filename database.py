@@ -4,6 +4,7 @@ import sqlite3
 class DatabaseMaker(object):
     def __init__(self):
         try:
+            self.staff_data = ""
             self.connection = sqlite3.connect("problem_domain.db")
             self.cursor = self.connection.cursor()
         except Exception as e:
@@ -21,8 +22,7 @@ class DatabaseMaker(object):
     def create_table(self):
         sql_command = """
         CREATE TABLE IF NOT EXISTS employee (
-        staff_number INTEGER PRIMARY KEY,
-        id CHAR(4),
+        id CHAR(4) PRIMARY KEY,
         gender CHAR(1),
         age INT(2),
         sales INT,
@@ -32,33 +32,36 @@ class DatabaseMaker(object):
         self.cursor.execute(sql_command)
 
     def insert(self, id, gender, age, sales, bmi, salary, birthday):
-        staff_data = [(id, gender, age, sales, bmi, salary, birthday)]
-        for p in staff_data:
-            format_str = """INSERT INTO employee (staff_number,
-                                                  id,
-                                                  gender,
-                                                  age,
-                                                  sales,
-                                                  bmi,
-                                                  salary,
-                                                  birthday)
-                            VALUES (NULL, "{id}",
-                                          "{gender}",
-                                          "{age}",
-                                          "{sales}",
-                                          "{bmi}",
-                                          "{salary}",
-                                          "{birthday}");"""
+        try:
+            self.staff_data = [(id, gender, age, sales, bmi, salary, birthday)]
+            for p in self.staff_data:
+                format_str = """INSERT INTO employee (id,
+                                                      gender,
+                                                      age,
+                                                      sales,
+                                                      bmi,
+                                                      salary,
+                                                      birthday)
+                                VALUES ("{id}",
+                                        "{gender}",
+                                        "{age}",
+                                        "{sales}",
+                                        "{bmi}",
+                                        "{salary}",
+                                        "{birthday}");"""
 
-            sql_command = format_str.format(id=p[0],
-                                            gender=p[1],
-                                            age=p[2],
-                                            sales=p[3],
-                                            bmi=p[4],
-                                            salary=p[5],
-                                            birthday=p[6])
-            self.cursor.execute(sql_command)
-        self.connection.commit()
+                sql_command = format_str.format(id=p[0],
+                                                gender=p[1],
+                                                age=p[2],
+                                                sales=p[3],
+                                                bmi=p[4],
+                                                salary=p[5],
+                                                birthday=p[6])
+                self.cursor.execute(sql_command)
+            self.connection.commit()
+        except Exception as err:
+            print("\nCAN'T ADD ",self.staff_data, " TO THE DATABASE")
+            print("The exception is: ", err)
 
     def get(self, value):
         try:
