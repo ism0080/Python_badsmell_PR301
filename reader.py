@@ -22,3 +22,4 @@ class FileReader(object):
         except IOError as err:
             print("The exception is: ", err)
             pass
+

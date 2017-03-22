@@ -23,18 +23,23 @@ class Controller(object):
             print("The exception is: ", err)
 
     def valid(self, flag):
-        if flag == '':
-            self.validate()
-        if flag == '-f':
-            file = input("Validate which file?:")
-            self.read_file(file)
-            self.validate()
-        if flag == '-v':
-            self.view_valid()
-        if flag == '-fv':
-            file = input("Validate which file?:")
-            self.read_file(file)
-            self.validate()
+        try:
+            if flag == '':
+                self.validate()
+            if flag == '-f':
+                file = input("Validate which file?:")
+                self.read_file(file)
+                self.validate()
+            if flag == '-v':
+                self.view_valid()
+            if flag == '-fv':
+                file = input("Validate which file?:")
+                self.read_file(file)
+                self.validate()
+            else:
+                raise Exception("Not a valid flag")
+        except Exception as err:
+            print("The exception is: ", err)
 
     def validate(self):
         try:
@@ -50,27 +55,32 @@ class Controller(object):
             print(dict)
 
     def db_table(self, flag):
-        if flag == "-d":
-            self.db_drop_table()
-        elif flag == '-c':
-            self.db_create_table()
-        elif flag == '-dc':
-            self.db_drop_table()
-            self.db_create_table()
-        elif flag == '-i':
-            for i in self.db_insert():
-                print(i)
-        elif flag == '-v':
-            value = input("What column do you want to\
-                            see from the employee table?")
-            self.db_view(value)
-        elif flag == '-if':
-            file = input("Input which file?:")
-            self.read_file(file)
-            self.validate()
-            self.db_insert()
-        elif flag == '':
-            self.db_view("*")
+        try:
+            if flag == "-d":
+                self.db_drop_table()
+            elif flag == '-c':
+                self.db_create_table()
+            elif flag == '-dc':
+                self.db_drop_table()
+                self.db_create_table()
+            elif flag == '-i':
+                for i in self.db_insert():
+                    print(i)
+            elif flag == '-v':
+                value = input("What column do you want to\
+                                see from the employee table?")
+                self.db_view(value)
+            elif flag == '-if':
+                file = input("Input which file?:")
+                self.read_file(file)
+                self.validate()
+                self.db_insert()
+            elif flag == '':
+                self.db_view("*")
+            else:
+                raise Exception("Not a valid flag")
+        except Exception as err:
+            print("The exception is: ", err)
 
     def db_drop_table(self):
         self.db.drop_table("employee")
@@ -104,13 +114,18 @@ class Controller(object):
         self.db.close()
 
     def pygal(self, flag):
-        if flag == '':
-            value = input("Which data do you want to see a bar graph of?")
-            self.py_view(value)
-        if flag == '-d':
-            value = input("Input first bar graph comparison:")
-            value2 = input("Input second bar graph comparison:")
-            self.py_view(value, value2)
+        try:
+            if flag == '':
+                value = input("Which data do you want to see a bar graph of?")
+                self.py_view(value)
+            if flag == '-d':
+                value = input("Input first bar graph comparison:")
+                value2 = input("Input second bar graph comparison:")
+                self.py_view(value, value2)
+            else:
+                raise Exception("Not a valid flag")
+        except Exception as err:
+            print("The exception is: ", err)
 
     def py_view(self, value, value2=None):
         try:
@@ -124,19 +139,26 @@ class Controller(object):
             print("The exception is: ", err)
 
     def pickled(self, flag):
-        if flag == '':
-            self.pickled_write()
-        elif flag == '-r':
-            self.pickled_read()
+        try:
+            if flag == '':
+                name = input("Name of pickle file?:")
+                self.pickled_write(name)
+            elif flag == '-r':
+                name = input("Name of pickle file?:")
+                self.pickled_read(name)
+            else:
+                raise Exception("Not a valid flag")
+        except Exception as err:
+            print("The exception is: ", err)
 
-    def pickled_write(self):
+    def pickled_write(self, name):
         import pickle
-        with open('data.pickle', 'wb') as f:
+        with open('{name}.pickle'.format(name=name), 'wb') as f:
             pickle.dump(self.converted_file, f)
 
-    def pickled_read(self):
+    def pickled_read(self, name):
         import pickle
-        with open('data.pickle', 'rb') as f:
+        with open('{name}.pickle'.format(name=name), 'rb') as f:
             data = pickle.load(f)
         print(data)
         # print(data == self.db_view("*"))

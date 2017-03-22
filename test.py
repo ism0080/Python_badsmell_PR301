@@ -1,4 +1,4 @@
-with open("table5.txt", 'r') as file:
+with open("table.txt", 'r') as file:
     file_data = file.read()
     # splits on newline
     group = file_data.split('\n')

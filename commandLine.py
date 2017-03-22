@@ -19,7 +19,7 @@ class DomainCmd(Cmd):
     # Support Command-Line Argument
     def arg(self):
         try:
-            if sys.argv[1] == "barchart":
+            if sys.argv[1] == "chart":
                 self.do_chart(sys.argv[2])
             if sys.argv[1] == "read":
                 self.do_read(sys.argv[2])
@@ -88,7 +88,8 @@ class DomainCmd(Cmd):
     def do_serial(self, flag):
         """
         Syntax: serial [flag]
-            serial: writes the contents of the recently read file to 'data.pickle'
+            serial: writes the contents of the recently read file to [yourfilename].pickle
+                    you will be prompted for the name of the pickle file
             serial -r: reads the contents of 'data.pickle'
         :param flag: -r
         :return: contents of 'data.pickle'

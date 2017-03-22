@@ -1,3 +1,1 @@
 id=A123, gender=M, age=20, sales=123, bmi=Normal, salary=109, birthday=24-10-1996
-id=B234, gender=F, age=16, sales=321, bmi=Overweight, salary=100, birthday=01-01-2001
-id=C567, gender=F, age=54, sales=234, bmi=Obesity, salary=999, birthday=32-04-2017
