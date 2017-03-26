@@ -130,11 +130,12 @@ class Controller(object):
     def py_view(self, value, value2=None):
         try:
             data = self.db.bar_get(value)
+            id = self.db.bar_get('id')
             if value2 is not None:
                 data2 = self.db.bar_get(value2)
-                self.py.bar_char(value, data, value2, data2)
+                self.py.bar_char(id, value, data, value2, data2)
             else:
-                self.py.bar_char(value, data)
+                self.py.bar_char(id, value, data)
         except Exception as err:
             print("The exception is: ", err)
 
@@ -142,10 +143,16 @@ class Controller(object):
         try:
             if flag == '':
                 name = input("Name of pickle file?:")
-                self.pickled_write(name)
+                if name == '':
+                    raise Exception("Not a valid filename")
+                else:
+                    self.pickled_write(name)
             elif flag == '-r':
                 name = input("Name of pickle file?:")
-                self.pickled_read(name)
+                if name == '':
+                    raise Exception("Not a valid filename")
+                else:
+                    self.pickled_read(name)
             else:
                 raise Exception("Not a valid flag")
         except Exception as err:
