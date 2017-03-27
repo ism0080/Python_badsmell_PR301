@@ -122,6 +122,7 @@ class Controller(object):
                 value = input("Input first bar graph comparison:")
                 value2 = input("Input second bar graph comparison:")
                 self.py_view(value, value2)
+                return
             else:
                 raise Exception("Not a valid flag")
         except Exception as err:

@@ -38,7 +38,10 @@ class DomainCmd(Cmd):
         :param filename:
         :return: Contents of the file
         """
-        self.con.read_file(filename)
+        if filename:
+            self.con.read_file(filename)
+        else:
+            print("Enter a filename")
 
     # Validate the file
     def do_validate(self, flag):
