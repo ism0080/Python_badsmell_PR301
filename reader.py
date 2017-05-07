@@ -11,10 +11,12 @@ class FileReader(object):
                 line = []
                 list_of_dictionaries = []
                 i = 0
+                # splits on comma separation
                 for x in group:
                     line.extend([group[i].split(', ')])
                     list_of_dictionaries.extend([i])
                     i += 1
+                # adds each dictionary to a dictionary to create a list of dictionaries
                 for empty in list_of_dictionaries:
                     list_of_dictionaries[empty]\
                         = dict(e.split('=') for e in line[empty])
