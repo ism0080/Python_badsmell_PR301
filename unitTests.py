@@ -1,7 +1,6 @@
 import unittest
 import reader
 import database
-import commandLine
 import validator
 
 
@@ -89,7 +88,7 @@ class MainTests(unittest.TestCase):
         data = self.db.get('age')
         self.assertNotEqual(data, [(20,)], 'Not equal')
 
-    if __name__ == "__main__":
+    if __name__ == "__main__":  # pragma: no cover
         unittest.main(verbosity=True)  # with more detail
         # unittest.main()
         # unittest.main(exit=False) # with more detail
