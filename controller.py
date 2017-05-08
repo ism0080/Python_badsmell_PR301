@@ -148,6 +148,15 @@ class Controller(object):
         except Exception as err:
             print("The exception is: ", err)
 
+    def check_valid_pickle(self, flag):
+        options = {'': self.pickled_write,
+                   '-r': self.pickled_read}
+        name = input("Name of pickle file?")
+        if name == '':
+            raise Exception("Not a valid filename")
+        else:
+            return options[flag](name)
+
     def pickled_write(self, name):
         import pickle
         with open('{name}.pickle'.format(name=name), 'wb') as f:
