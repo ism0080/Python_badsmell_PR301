@@ -3,6 +3,7 @@ class FileReader(object):
         pass
 
     def read(self, filename):
+        # COMMENT SMELL
         try:
             with open(filename, 'r') as file:
                 file_data = file.read()
