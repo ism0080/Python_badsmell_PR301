@@ -127,6 +127,7 @@ class Controller(object):
             print("The exception is: ", err)
 
     def pickled(self, flag):
+        # Duplicated Code Smell
         try:
             if flag == '':
                 name = input("Name of pickle file?:")
