@@ -110,6 +110,11 @@ class Controller(object):
 
     def pygal(self, flag):
         # DUPLICATED CODE SMELL
+        display = {}
+        for x in range(0, int(flag)):
+            value = input("What to see from the bar graph?")
+            data = self.db.bar_get(value)
+            display.update({value: data})
         try:
             if flag == '':
                 value = input("Which data do you want to see a bar graph of?")
