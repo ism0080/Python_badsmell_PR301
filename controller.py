@@ -129,14 +129,6 @@ class Controller(object):
     def pickled(self, flag):
         # Duplicated Code Smell
         try:
-            options = {'': self.check_valid_pickle,
-                       '-r': self.check_valid_pickle}
-            return options[flag](flag)
-        except Exception as err:
-            print("The exception is: ", err)
-
-    def check_valid_pickle(self, flag):
-        try:
             options = {'': self.pickled_write,
                        '-r': self.pickled_read}
             name = input("Name of pickle file?")
