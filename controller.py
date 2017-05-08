@@ -128,23 +128,10 @@ class Controller(object):
 
     def pickled(self, flag):
         # Duplicated Code Smell
-        options = {'': "Create check method",
-                   '-r': "Create check method"}
         try:
-            if flag == '':
-                name = input("Name of pickle file?:")
-                if name == '':
-                    raise Exception("Not a valid filename")
-                else:
-                    self.pickled_write(name)
-            elif flag == '-r':
-                name = input("Name of pickle file?:")
-                if name == '':
-                    raise Exception("Not a valid filename")
-                else:
-                    self.pickled_read(name)
-            else:
-                raise Exception("Not a valid flag")
+            options = {'': self.check_valid_pickle,
+                       '-r': self.check_valid_pickle}
+            return options[flag](flag)
         except Exception as err:
             print("The exception is: ", err)
 
