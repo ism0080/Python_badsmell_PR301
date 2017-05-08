@@ -23,6 +23,7 @@ class Controller(object):
             print("The exception is: ", err)
 
     def valid(self, flag):
+        #SWITCH STATEMENT SMELL
         try:
             if flag == '':
                 self.validate()
