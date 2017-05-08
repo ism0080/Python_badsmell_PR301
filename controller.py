@@ -109,7 +109,6 @@ class Controller(object):
         self.db.close()
 
     def pygal(self, count):
-        # DUPLICATED CODE SMELL
         try:
             display = {}
             for x in range(0, int(count)):
