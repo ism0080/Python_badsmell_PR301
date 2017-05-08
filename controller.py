@@ -117,16 +117,6 @@ class Controller(object):
                 data = self.db.bar_get(value)
                 display.update({value: data})
             self.py_view(display)
-            # if flag == '':
-            #     value = input("Which data do you want to see a bar graph of?")
-            #     self.py_view(value)
-            # if flag == '-d':
-            #     value = input("Input first bar graph comparison:")
-            #     value2 = input("Input second bar graph comparison:")
-            #     self.py_view(value, value2)
-            #     return
-            # else:
-            #     raise Exception("Not a valid flag")
         except Exception as err:
             print("The exception is: ", err)
 
