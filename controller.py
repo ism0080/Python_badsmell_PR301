@@ -23,30 +23,19 @@ class Controller(object):
             print("The exception is: ", err)
 
     def valid(self, flag):
-        #SWITCH STATEMENT SMELL
-        options = {'': self.validate,
-                   '-v': self.view_valid,
-                   '-f': "Need to create method",
-                   '-fv': "Need to create method"}
         try:
-            if flag == '':
-                self.validate()
-            if flag == '-f':
-                file = input("Validate which file?:")
-                self.read_file(file)
-                self.validate()
-            if flag == '-v':
-                self.view_valid()
-            else:
-                raise Exception("Not a valid flag")
+            options = {'': self.validate,
+                       '-v': self.view_valid,
+                       '-f': self.read_validate
+                       }
+            return options[flag]()
         except Exception as err:
-            print("The exception is: ", err)
+            print("The exception is: ", err, " is not a valid flag")
 
     def validate(self):
         try:
             for dict in self.converted_file:
                 self.val.valid(dict)
-            return self.view_valid()
         except Exception as err:
             print("The exception is: No file specified")
 
