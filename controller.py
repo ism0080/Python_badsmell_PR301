@@ -59,6 +59,11 @@ class Controller(object):
         for dict in self.val.get():
             print(dict)
 
+    def read_validate(self):
+        file = input("Validate which file?:")
+        self.read_file(file)
+        self.validate()
+
     def db_table(self, flag):
         try:
             if flag == "-d":
