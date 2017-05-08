@@ -127,7 +127,6 @@ class Controller(object):
             print("The exception is: ", err)
 
     def pickled(self, flag):
-        # Duplicated Code Smell
         try:
             options = {'': self.pickled_write,
                        '-r': self.pickled_read}
