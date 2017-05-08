@@ -110,34 +110,30 @@ class Controller(object):
 
     def pygal(self, flag):
         # DUPLICATED CODE SMELL
-        display = {}
-        for x in range(0, int(flag)):
-            value = input("What to see from the bar graph?")
-            data = self.db.bar_get(value)
-            display.update({value: data})
         try:
-            if flag == '':
-                value = input("Which data do you want to see a bar graph of?")
-                self.py_view(value)
-            if flag == '-d':
-                value = input("Input first bar graph comparison:")
-                value2 = input("Input second bar graph comparison:")
-                self.py_view(value, value2)
-                return
-            else:
-                raise Exception("Not a valid flag")
+            display = {}
+            for x in range(0, int(flag)):
+                value = input("What to see from the bar graph?")
+                data = self.db.bar_get(value)
+                display.update({value: data})
+            self.py_view(display)
+            # if flag == '':
+            #     value = input("Which data do you want to see a bar graph of?")
+            #     self.py_view(value)
+            # if flag == '-d':
+            #     value = input("Input first bar graph comparison:")
+            #     value2 = input("Input second bar graph comparison:")
+            #     self.py_view(value, value2)
+            #     return
+            # else:
+            #     raise Exception("Not a valid flag")
         except Exception as err:
             print("The exception is: ", err)
 
-    def py_view(self, value, value2=None):
+    def py_view(self, dictionary):
         try:
-            data = self.db.bar_get(value)
             id = self.db.bar_get('id')
-            if value2 is not None:
-                data2 = self.db.bar_get(value2)
-                self.py.bar_char(id, value, data, value2, data2)
-            else:
-                self.py.bar_char(id, value, data)
+            self.py.bar_char(id, dictionary)
         except Exception as err:
             print("The exception is: ", err)
 
