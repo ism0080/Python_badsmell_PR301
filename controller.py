@@ -24,6 +24,10 @@ class Controller(object):
 
     def valid(self, flag):
         #SWITCH STATEMENT SMELL
+        options = {'': self.validate,
+                   '-v': self.view_valid,
+                   '-f': "Need to create method",
+                   '-fv': "Need to create method"}
         try:
             if flag == '':
                 self.validate()
