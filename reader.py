@@ -1,6 +1,7 @@
 class FileReader(object):
     def __init__(self):
-        pass
+        self.line = []
+        self.list_of_dictionaries = []
 
     def read(self, filename):
         # COMMENT SMELL
@@ -9,19 +10,17 @@ class FileReader(object):
                 file_data = file.read()
                 # splits on newline
                 group = file_data.split('\n')
-                line = []
-                list_of_dictionaries = []
                 i = 0
                 # splits on comma separation
                 for x in group:
-                    line.extend([group[i].split(', ')])
-                    list_of_dictionaries.extend([i])
+                    self.line.extend([group[i].split(', ')])
+                    self.list_of_dictionaries.extend([i])
                     i += 1
                 # adds each dictionary to a dictionary to create a list of dictionaries
-                for empty in list_of_dictionaries:
-                    list_of_dictionaries[empty]\
-                        = dict(e.split('=') for e in line[empty])
-            return list_of_dictionaries
+                for empty in self.list_of_dictionaries:
+                    self.list_of_dictionaries[empty]\
+                        = dict(e.split('=') for e in self.line[empty])
+            return self.list_of_dictionaries
         except IOError as err:
             print("The exception is: ", err)
             pass
