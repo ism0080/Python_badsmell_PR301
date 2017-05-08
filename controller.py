@@ -37,10 +37,6 @@ class Controller(object):
                 self.validate()
             if flag == '-v':
                 self.view_valid()
-            if flag == '-fv':
-                file = input("Validate which file?:")
-                self.read_file(file)
-                self.validate()
             else:
                 raise Exception("Not a valid flag")
         except Exception as err:
