@@ -9,11 +9,11 @@ class FileReader(object):
             with open(filename, 'r') as file:
                 file_data = file.read()
                 # splits on newline
-                group = file_data.split('\n')
+                new_line_split = file_data.split('\n')
                 i = 0
                 # splits on comma separation
-                for x in group:
-                    self.line.extend([group[i].split(', ')])
+                for x in new_line_split:
+                    self.line.extend([new_line_split[i].split(', ')])
                     self.list_of_dictionaries.extend([i])
                     i += 1
                 # adds each dictionary to a dictionary to create a list of dictionaries
