@@ -128,6 +128,8 @@ class Controller(object):
 
     def pickled(self, flag):
         # Duplicated Code Smell
+        options = {'': "Create check method",
+                   '-r': "Create check method"}
         try:
             if flag == '':
                 name = input("Name of pickle file?:")
