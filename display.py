@@ -5,6 +5,7 @@ import pygal
 
 
 class PyGal(object):
+    # DUPLICATED CODE SMELL
     def bar_char(self, id, name, data, name2=None, data2=None):
         try:
             #bar_chart = pygal.Bar()  # Then create a bar graph object
@@ -15,6 +16,6 @@ class PyGal(object):
                 bar_chart = pygal.Bar(title='Sales vs Salary', x_title='Employee ID\'s', y_title='Sales/Salary')
                 bar_chart.add(name2, data2)
                 bar_chart.x_labels = id
-            bar_chart.render_in_browser()
+            # bar_chart.render_in_browser()
         except Exception as err:
             print("The exception is: Invalid Data", err)

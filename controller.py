@@ -109,6 +109,7 @@ class Controller(object):
         self.db.close()
 
     def pygal(self, flag):
+        # DUPLICATED CODE SMELL
         try:
             if flag == '':
                 value = input("Which data do you want to see a bar graph of?")
