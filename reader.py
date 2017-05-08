@@ -4,16 +4,14 @@ class FileReader(object):
         self.list_of_dictionaries = []
 
     def read(self, filename):
-        # COMMENT SMELL
         try:
             with open(filename, 'r') as file:
                 file_data = file.read()
-                # splits on newline
                 new_line_split = file_data.split('\n')
-                # splits on comma separation
+
                 self.splits_on_comma_separation(new_line_split)
-                # adds each dictionary to a dictionary to create a list of dictionaries
                 self.create_list_of_dictionaries()
+
             return self.list_of_dictionaries
         except IOError as err:
             print("The exception is: ", err)
