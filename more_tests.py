@@ -1,7 +1,7 @@
 import unittest
 import reader
 import database
-import commandLine
+import command_line
 import validator
 import display
 import controller
@@ -15,7 +15,7 @@ class MoreTests(unittest.TestCase):
         self.valid = validator.Validator()
         self.db = database.DatabaseMaker()
         self.con = controller.Controller()
-        self.cmd = commandLine.DomainCmd(self.con)
+        self.cmd = command_line.DomainCmd(self.con)
         self.chart = display.PyGal()
 
     def tearDown(self):
@@ -56,9 +56,6 @@ class MoreTests(unittest.TestCase):
             mp.return_value = "table.txt"
             self.con.valid('-f')
         self.con.valid('-v')
-        with mock.patch('controller.input') as mp:
-            mp.return_value = "table.txt"
-            self.con.valid('-fv')
 
     def test_con_reader_throwException(self):
         self.con.read_file("lol")
@@ -83,10 +80,10 @@ class MoreTests(unittest.TestCase):
     def test_con_pygal(self):
         with mock.patch('controller.input') as mp:
             mp.return_value = "sales"
-            self.con.pygal('')
+            self.con.pygal(1)
         with mock.patch('controller.input') as mp:
             mp.return_value = "sales"
-            self.con.pygal('-d')
+            self.con.pygal(2)
 
     def test_con_pygal_throwException(self):
         self.assertRaises(Exception, self.con.py_view(123))

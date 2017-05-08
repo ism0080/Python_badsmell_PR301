@@ -108,11 +108,11 @@ class Controller(object):
     def database_close(self):
         self.db.close()
 
-    def pygal(self, flag):
+    def pygal(self, count):
         # DUPLICATED CODE SMELL
         try:
             display = {}
-            for x in range(0, int(flag)):
+            for x in range(0, int(count)):
                 value = input("What to see from the bar graph?")
                 data = self.db.bar_get(value)
                 display.update({value: data})

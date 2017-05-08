@@ -1,4 +1,4 @@
-from commandLine import DomainCmd
+from command_line import DomainCmd
 from controller import Controller
 
 if __name__ == '__main__':

@@ -8,10 +8,10 @@ class PyGal(object):
     # DUPLICATED CODE SMELL
     def bar_char(self, id, dictionary):
         try:
-            bar_chart = pygal.Bar(title='Employee Sales', x_title='Employee ID\'s', y_title='Sales')
+            bar_chart = pygal.Bar(title='Employee Information', x_title='Employee ID\'s', y_title='Employee Data')
             for key in dictionary:
                 bar_chart.add(key, dictionary[key])  # Add some values
             bar_chart.x_labels = id
-            # bar_chart.render_in_browser()
+            bar_chart.render_in_browser()
         except Exception as err:
             print("The exception is: Invalid Data", err)

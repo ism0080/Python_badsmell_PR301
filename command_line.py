@@ -4,7 +4,6 @@ Problem Domain CMD
 import sys
 from cmd import Cmd
 
-
 class DomainCmd(Cmd):
     """
     single command processor example
@@ -75,17 +74,16 @@ class DomainCmd(Cmd):
         self.con.db_table(flag)
 
     # PyGal Chart
-    def do_chart(self, flag):
+    def do_chart(self, count):
         """
-        Syntax: chart [flag]
-            chart: asks which column from the table you want to
-                    display in a barchart (age, sales, salary)
-            chart -d: asks which two columns you want to compare
-                        in a barchart (age, sales, salary)
-        :param flag: -d
+        Syntax: chart [count]
+            chart: enter a the number of values that you want to see in the chart
+                    from the database. Then asks which column from the table you
+                    want to display in a barchart (age, sales, salary)
+        :param count: 'a number'
         :return: Opens web browser to display barchart
         """
-        self.con.pygal(flag)
+        self.con.pygal(count)
 
     # Pickle Serial
     def do_serial(self, flag):

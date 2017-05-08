@@ -1,5 +1,5 @@
-from unitTests import *
-from moreTests import *
+from unit_tests import *
+from more_tests import *
 
 
 import unittest
