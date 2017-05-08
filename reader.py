@@ -10,12 +10,8 @@ class FileReader(object):
                 file_data = file.read()
                 # splits on newline
                 new_line_split = file_data.split('\n')
-                i = 0
                 # splits on comma separation
-                for x in new_line_split:
-                    self.line.extend([new_line_split[i].split(', ')])
-                    self.list_of_dictionaries.extend([i])
-                    i += 1
+                self.splits_on_comma_separation(new_line_split)
                 # adds each dictionary to a dictionary to create a list of dictionaries
                 for empty in self.list_of_dictionaries:
                     self.list_of_dictionaries[empty]\
@@ -24,4 +20,11 @@ class FileReader(object):
         except IOError as err:
             print("The exception is: ", err)
             pass
+
+    def splits_on_comma_separation(self, new_line_split):
+        i = 0
+        for x in new_line_split:
+            self.line.extend([new_line_split[i].split(', ')])
+            self.list_of_dictionaries.extend([i])
+            i += 1
 
