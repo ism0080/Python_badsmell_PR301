@@ -5,7 +5,6 @@ import pygal
 
 
 class PyGal(object):
-    # DUPLICATED CODE SMELL
     def bar_char(self, id, dictionary):
         try:
             bar_chart = pygal.Bar(title='Employee Information', x_title='Employee ID\'s', y_title='Employee Data')
