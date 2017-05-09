@@ -11,6 +11,7 @@ class PyGal(object):
             for key in dictionary:
                 bar_chart.add(key, dictionary[key])  # Add some values
             bar_chart.x_labels = id
-            bar_chart.render_in_browser()
+            # bar_chart.render_in_browser()
+            return True
         except Exception as err:
             print("The exception is: Invalid Data", err)

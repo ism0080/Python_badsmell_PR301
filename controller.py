@@ -51,29 +51,14 @@ class Controller(object):
 
     def db_table(self, flag):
         try:
-            if flag == "-d":
-                self.db_drop_table()
-            elif flag == '-c':
-                self.db_create_table()
-            elif flag == '-dc':
-                self.db_drop_table()
-                self.db_create_table()
-            elif flag == '-i':
-                for i in self.db_insert():
-                    print(i)
-            elif flag == '-v':
-                value = input("What column do you want to\
-                                see from the employee table?")
-                self.db_view(value)
-            elif flag == '-if':
-                file = input("Input which file?:")
-                self.read_file(file)
-                self.validate()
-                self.db_insert()
-            elif flag == '':
-                self.db_view("*")
-            else:
-                raise Exception("Not a valid flag")
+            options = {'': self.db_view,
+                       '-d': self.db_drop_table,
+                       '-c': self.db_create_table,
+                       '-dc': self.db_drop_create_table,
+                       '-i': self.db_insert_flag,
+                       '-if': self.db_database_read_validate_insert
+                       }
+            return options[flag]()
         except Exception as err:
             print("The exception is: ", err)
 
@@ -82,6 +67,19 @@ class Controller(object):
 
     def db_create_table(self):
         self.db.create_table()
+
+    def db_drop_create_table(self):
+        self.db_drop_table()
+        self.db_create_table()
+        return True
+
+    def db_insert_flag(self):
+        for i in self.db_insert():
+            print(i)
+
+    def db_database_read_validate_insert(self):
+        self.read_validate()
+        self.db_insert()
 
     def db_insert(self):
         try:
@@ -102,6 +100,8 @@ class Controller(object):
             print("The exception is: ", err)
 
     def db_view(self, value):
+        if not value:
+            value = input("What column to see from database?")
         for v in self.db.get(value):
             print(v)
 
@@ -123,7 +123,8 @@ class Controller(object):
         try:
             id = self.db.bar_get('id')
             self.py.bar_char(id, dictionary)
-        except Exception as err:
+            # doesn't reach this exception but there just in case
+        except Exception as err:  # pragma: no cover
             print("The exception is: ", err)
 
     def pickled(self, flag):
@@ -142,6 +143,7 @@ class Controller(object):
         import pickle
         with open('{name}.pickle'.format(name=name), 'wb') as f:
             pickle.dump(self.converted_file, f)
+        return True
 
     def pickled_read(self, name):
         import pickle

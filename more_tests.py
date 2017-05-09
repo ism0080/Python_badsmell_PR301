@@ -7,6 +7,7 @@ import display
 import controller
 import mock
 import sys
+import io
 
 
 class MoreTests(unittest.TestCase):
@@ -20,9 +21,6 @@ class MoreTests(unittest.TestCase):
 
     def tearDown(self):
         print("down")
-
-    def test_reader_exception_thrown(self):
-        self.assertRaises(Exception, self.read.read("invalid.txt"))
 
     def test_database_duplicate_data_exception_thrown(self):
         self.db.insert('A123', 'M', '20', '123', 'Normal', '109', '24-10-1996')
@@ -40,105 +38,125 @@ class MoreTests(unittest.TestCase):
     def test_database_bar_get_exception_thrown(self):
         self.assertRaises(Exception, self.db.bar_get("Dog"))
 
-    def test_con_validator(self):
-        testFile = self.con.read_file("testData.txt")
-        test = self.con.validate()
+    def test_cmd_read_noFilename(self):
+        captured = io.StringIO()
+        sys.stdout = captured
+        self.cmd.do_read("")
 
-    def test_con_validator_throw_exception(self):
-        self.assertRaises(Exception, self.con.validate())
+        expected = "Enter a filename\n"
+        actual = captured.getvalue()
+
+        self.assertEqual(expected, actual)
+
+    def test_cmd_read(self):
+        captured = io.StringIO()
+        sys.stdout = captured
+        self.cmd.do_read("table.txt")
+
+        expected = "FILE_DATA: 1 \n {'id': 'A123', 'gender': 'M', 'age': '20', 'sales': '123', 'bmi': 'Normal'," \
+                   " 'salary': '109', 'birthday': '24-10-1996'}\n"
+        actual = captured.getvalue()
+
+        self.assertEqual(expected, actual)
+
+    def test_cmd_read_invalidFile(self):
+        self.assertRaises(Exception, self.cmd.do_read("invalid.txt"))
+
+        # def test_con_validator(self):
+        #     testFile = self.con.read_file("testData.txt")
+        #     test = self.con.validate()
+
+    def test_cmd_validator_throw_exception(self):
+        self.assertRaises(Exception, self.cmd.do_validate(''))
 
     def test_validator_get(self):
         self.assertEqual([], self.valid.get())
 
-    def test_con_valid(self):
-        self.con.valid('')
+    def test_cmd_validator_invalidFlag(self):
+        self.assertRaises(Exception, self.cmd.do_validate('-c'))
+
+    def test_cmd_validator(self):
+        self.cmd.do_read('table.txt')
+        captured = io.StringIO()
+        sys.stdout = captured
+        self.cmd.do_validate('')
+
+        expected = "\nFILE_DATA: 1\n{'id': 'A123', 'gender': 'M', 'age': '20', 'sales': '123', 'bmi': 'Normal'," \
+                   " 'salary': '109', 'birthday': '24-10-1996'} \nVALIDATION SUCCESSFUL\n"
+        actual = captured.getvalue()
+
+        self.assertEqual(expected, actual)
+
+    def test_cmd_validator_viewValid(self):
+        self.cmd.do_read('table.txt')
+        self.cmd.do_validate('')
+        captured = io.StringIO()
+        sys.stdout = captured
+        self.cmd.do_validate('-v')
+
+        expected = "\n VALID DATA:\n{'id': 'A123', 'gender': 'M', 'age': '20', 'sales': '123', 'bmi': 'Normal'," \
+                   " 'salary': '109', 'birthday': '24-10-1996'}\n"
+        actual = captured.getvalue()
+
+        self.assertEqual(expected, actual)
+
+    def test_cmd_validator_readValidate(self):
+        captured = io.StringIO()
+        sys.stdout = captured
         with mock.patch('controller.input') as mp:
             mp.return_value = "table.txt"
-            self.con.valid('-f')
-        self.con.valid('-v')
+            self.cmd.do_validate('-f')
 
-    def test_con_reader_throwException(self):
-        self.con.read_file("lol")
+        expected = "FILE_DATA: 1 \n {'id': 'A123', 'gender': 'M', 'age': '20', 'sales': '123', 'bmi': 'Normal', " \
+                   "'salary': '109', 'birthday': '24-10-1996'}\n\n" \
+                   "FILE_DATA: 1\n{'id': 'A123', 'gender': 'M', 'age': '20', 'sales': '123', 'bmi': 'Normal', " \
+                   "'salary': '109', 'birthday': '24-10-1996'} \nVALIDATION SUCCESSFUL\n"
+        actual = captured.getvalue()
 
-    def test_con_database(self):
-        self.con.db_table('')
-        self.con.db_table('-d')
-        self.con.db_table('-c')
-        self.con.db_table('-dc')
-        self.con.db_table('-i')
+        self.assertEqual(expected, actual)
+
+    def test_cmd_pickled_write(self):
         with mock.patch('controller.input') as mp:
-            mp.return_value = "age"
-            self.con.db_table('-v')
+            mp.return_value = "data"
+            self.assertTrue(self.con.pickled(''))
+
+    def test_cmd_pickled_read(self):
+        captured = io.StringIO()
+        sys.stdout = captured
         with mock.patch('controller.input') as mp:
-            mp.return_value = "table.txt"
-            self.con.db_table('-if')
-        self.con.database_close()
+            mp.return_value = "data"
+            self.con.pickled('-r')
+
+        expected = "None\n"
+        actual = captured.getvalue()
+
+        self.assertEqual(expected, actual)
+
+    def test_cmd_pickled_notValidFilename(self):
+        with mock.patch('controller.input') as mp:
+            mp.return_value = ""
+            self.assertRaises(Exception, self.con.pickled(''))
+
+    def test_cmd_chart(self):
+        with mock.patch('controller.input') as mp:
+            mp.return_value = "sales"
+            self.cmd.do_chart(2)
+
+    def test_cmd_chart_invalid(self):
+        self.assertRaises(Exception, self.cmd.do_chart(''))
+
+    def test_cmd_database_droptable(self):
+        self.assertTrue(self.con.db_table('-dc'))
 
     def test_con_database_throwException(self):
-       self.assertRaises(Exception, self.con.db_table('q'))
-
-    def test_con_pygal(self):
-        with mock.patch('controller.input') as mp:
-            mp.return_value = "sales"
-            self.con.pygal(1)
-        with mock.patch('controller.input') as mp:
-            mp.return_value = "sales"
-            self.con.pygal(2)
+        self.assertRaises(Exception, self.con.db_table('q'))
 
     def test_con_pygal_throwException(self):
         self.assertRaises(Exception, self.con.py_view(123))
 
-    def test_con_pickled(self):
-        with mock.patch('controller.input') as mp:
-            mp.return_value = "data"
-            self.con.pickled('')
-        with mock.patch('controller.input') as mp:
-            mp.return_value = ""
-            self.con.pickled('')
-        with mock.patch('controller.input') as mp:
-            mp.return_value = "data"
-            self.con.pickled('-r')
-        with mock.patch('controller.input') as mp:
-            mp.return_value = ""
-            self.con.pickled('-r')
-        self.assertRaises(Exception, self.con.pickled('p'))
-
-    def test_cmd_arg_chart(self):
-        sys.argv = ['', 'chart', '']
-        with mock.patch('controller.input') as mp:
-            mp.return_value = "sales"
-            self.cmd.arg()
-
-    def test_cmd_arg_read(self):
-        sys.argv = ['', 'read', '']
-        with mock.patch('controller.input') as mp:
-            mp.return_value = "table.txt"
-            self.cmd.arg()
-
-    def test_cmd_arg_validate(self):
-        sys.argv = ['', 'validate', '']
-        self.cmd.arg()
-
-    def test_cmd_arg_db(self):
-        sys.argv = ['', 'db', '']
-        self.cmd.arg()
-
     def test_cmd_arg_throwException(self):
         sys.argv = "cart"
         self.assertRaises(Exception, self.cmd.arg())
-
-    def test_cmd(self):
-        self.cmd.do_read("table.txt")
-        self.cmd.do_read("")
-        self.cmd.do_validate('')
-        self.cmd.do_db('')
-        with mock.patch('controller.input') as mp:
-            mp.return_value = "age"
-            self.cmd.do_chart('')
-        with mock.patch('controller.input') as mp:
-            mp.return_value = "data"
-            self.cmd.do_serial('')
-        self.cmd.do_quit("line")
 
     if __name__ == "__main__":  # pragma: no cover
         unittest.main(verbosity=True)  # with more detail

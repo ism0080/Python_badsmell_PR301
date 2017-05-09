@@ -60,11 +60,10 @@ class DomainCmd(Cmd):
     def do_db(self, flag):
         """
         Syntax: db [flag]
-            db: displays all data from the database
+            db: asks which column you would like to see from the table
             db -i: inserts the previously validated data
             db -if: asks which file you would like to input to the database,
                     reads it, validates, then inserts
-            db -v: asks which column you would like to see from the table
             db -d: drop table
             db -c: create table
             db -dc: drop and create table
